@@ -1,13 +1,50 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View, TextInput } from "react-native";
 import React from "react";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE  } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
 
 export default function App() {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
+
+  const mapJson = [
+    {
+      "featureType": "poi.park",
+      "stylers": [
+        {
+          "visibility": "on"
+        }
+      ]
+    },
+    {
+      "featureType": "road.arterial",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "road.highway",
+      "elementType": "labels",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "road.local",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    }
+  ]
+  
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -56,7 +93,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder="Address"
+        placeholder=" Input Address"
         value={address}
         onChangeText={setAddress}
       />
@@ -67,12 +104,16 @@ export default function App() {
       />
 
       {location ? (
-        <MapView
-          style={styles.map}
-          initialRegion={location}
-          showsUserLocation={true}
-          // ^^ this gives blue dot on map for your location
-        >
+       
+    <MapView
+    provider={PROVIDER_GOOGLE}
+style={styles.map}
+initialRegion={location}
+showsUserLocation={true}
+customMapStyle={mapJson}
+      // ^^ this gives blue dot on map for your location
+    >
+
           {markerLocations.map((location) => {
             return (
               <Marker key={location.id} coordinate={location.coordinate} />
