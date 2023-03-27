@@ -109,3 +109,6 @@ https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=food&locati
 https://sunnychopper.medium.com/how-to-use-axios-to-quickly-connect-to-an-api-in-your-react-native-application-a69c1c048f8e
 
 
+# Search for a specific destination and set a marker for it:
+
+https://www.youtube.com/watch?v=qlELLikT3FU&t=10s
