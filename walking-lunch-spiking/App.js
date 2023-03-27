@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import Timer from "./Timer";
 
 export default function App() {
   const [location, setLocation] = useState();
@@ -101,6 +102,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Timer></Timer>
       {location ? (
         <GooglePlacesAutocomplete
           placeholder="Search"
