@@ -4,17 +4,19 @@ import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
-import MapViewDirections from 'react-native-maps-directions';
+import MapViewDirections from "react-native-maps-directions";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 export default function App() {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
-// for directions 
-//const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
-const origin = "Manchester Technology Centre"
-const destination = {latitude: 53.636325899999996, longitude: -2.3278136}; //Ricks house
-const GOOGLE_MAPS_APIKEY = 'AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U';
-// for directions 
+  const [searchedDestination, setSearchedDestination] = useState();
+  // for directions
+  //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
+  const origin = "Manchester Technology Centre";
+  const destination = { latitude: 53.636325899999996, longitude: -2.3278136 }; //Ricks house
+  const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
+  // for directions
 
   const mapJson = [
     {
@@ -99,6 +101,41 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U';
 
   return (
     <View style={styles.container}>
+      {location ? (
+        <GooglePlacesAutocomplete
+          placeholder="Search"
+          fetchDetails={true}
+          GooglePlacesSearchQuery={{ rankby: "distance" }}
+          onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            setSearchedDestination({
+              latitude: details.geometry.location.lat,
+              longitude: details.geometry.location.lng,
+              latitudeDelta: 0.004,
+              longitudeDelta: 0.009,
+            });
+          }}
+          query={{
+            key: GOOGLE_MAPS_APIKEY,
+            language: "en",
+            types: "establishment",
+            radius: 1000,
+            location: `${location.latitude},${location.longitude}`,
+          }}
+          styles={{
+            container: {
+              flex: 0,
+              width: "100%",
+              zIndex: 1,
+              listView: { backgroundColor: "white" },
+            },
+          }}
+        />
+      ) : null}
+      {/* Above component creates a search function above the map (only renders when
+      there is a location set initially), and if you click on something it will
+      then create a marker there (down below in mapview) */}
+
       <TextInput
         placeholder=" Input Address"
         value={address}
@@ -109,7 +146,6 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U';
         title="Reverse Geocode Current Location"
         onPress={reverseGeocode}
       />
-
       {location ? (
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -131,20 +167,27 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U';
           // ^^ this is laying one hard coded marker rather than mapping over an array of locations to mark
           /> */}
           <MapViewDirections
-          origin={origin}
-          destination={destination}
-          mode="WALKING"
-          strokeWidth={5}
-          strokeColor="hotpink"
-          waypoints = {["Trafford Centre"]}
-          apikey={GOOGLE_MAPS_APIKEY}
-        />
-          
+            origin={origin}
+            destination={destination}
+            mode="WALKING"
+            strokeWidth={5}
+            strokeColor="hotpink"
+            waypoints={["Trafford Centre"]}
+            apikey={GOOGLE_MAPS_APIKEY}
+          />
+          {searchedDestination ? (
+            <Marker
+              coordinate={{
+                latitude: searchedDestination.latitude,
+                longitude: searchedDestination.longitude,
+              }}
+            />
+          ) : null}
+          {/* Above is the marker that gets placed if a destination is searched for */}
         </MapView>
       ) : (
         <Text>Loading...</Text>
       )}
-
       <StatusBar style="auto" />
     </View>
   );
