@@ -8,8 +8,7 @@ Offical:
 https://reactnative.dev/docs/environment-setup?guide=quickstart
 
 Unofficaial:
-https://aboutreact.com/getting-started-with-react-native/
-https://reactnative.dev/docs/environment-setup?guide=quickstart
+https://aboutreact.com/getting-started-with-react-native/https://reactnative.dev/docs/environment-setup?guide=quickstart
 
 ### Overview of commands
 
@@ -67,7 +66,6 @@ latitude": 53.636325899999996, "longitude": -2.3278136
 
 https://github.com/methodbox/rn-maps-directions-expo
 
-<<<<<<< Updated upstream
 # Get places via axios
 
 ## places
@@ -78,28 +76,27 @@ https://maps.googleapis.com/maps/api/place/details/json?fields=name%2Crating%2Cf
 
 returns
 {
-	"html_attributions": [],
-	"result": {
-		"formatted_phone_number": "(02) 9374 4000",
-		"name": "Google Workplace 6",
-		"rating": 4
-	},
-	"status": "OK"
+"html_attributions": [],
+"result": {
+"formatted_phone_number": "(02) 9374 4000",
+"name": "Google Workplace 6",
+"rating": 4
+},
+"status": "OK"
 }
 
 ## free data WARNING
+
 Web service: address_component, adr_address, business_status, formatted_address, geometry, icon, name, permanently_closed, photo, place_id, plus_code, type, url, utc_offset, vicinity, or wheelchair_accessible_entrance
 
 https://developers.google.com/maps/documentation/places/web-service/usage-and-billing/
 
-
 https://maps.googleapis.com/maps/api/place/nearbysearch/json
-  ?keyword=food
-  &location=-2.2377251%53.4721341
-  &radius=150
-  &type=restaurant
-  &key=AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U
-
+?keyword=food
+&location=-2.2377251%53.4721341
+&radius=150
+&type=restaurant
+&key=AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U
 
 https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=food&location=-33.8670522%2C151.1957362&radius=150&type=restaurant&key=AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U
 
@@ -110,9 +107,6 @@ https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=food&locati
 
 https://sunnychopper.medium.com/how-to-use-axios-to-quickly-connect-to-an-api-in-your-react-native-application-a69c1c048f8e
 
-
-=======
->>>>>>> Stashed changes
 # Search for a specific destination and set a marker for it:
 
 https://www.youtube.com/watch?v=qlELLikT3FU&t=10s
